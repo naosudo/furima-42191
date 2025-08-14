@@ -5,7 +5,7 @@
 | Column                | Type    | Options     |
 | --------------------- | ------- | ----------- |
 | nickname              | string  | null: false |
-| email                 | string  | null: false, unique |
+| email                 | string  | null: false, unique: true |
 | encrypted_password    | string  | null: false |
 | firstname_kanji       | string  | null: false |
 | lastname_kanji        | string  | null: false |
@@ -31,7 +31,7 @@
 | status_id            | integer    | null: false                    |
 | payment_id           | integer    | null: false                    |
 | prefecture_id        | integer    | null: false                    |
-| days_id              | integer    | null: false                    |
+| day_id              | integer    | null: false                    |
 
 ### Association
 
