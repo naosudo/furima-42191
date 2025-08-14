@@ -4,7 +4,7 @@ RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
     @item.image.attach(
-      io: StringIO.new('fake image content'),  
+      io: StringIO.new('fake image content'),
       filename: 'test_image.jpg',
       content_type: 'image/jpeg'
     )
@@ -84,34 +84,40 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
 
-      it "category_idの値が0の時は保存できないこと" do
+      it 'priceが半角数字でない場合は保存できないこと' do
+        @item.price = '１０００' # 全角数字
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it 'category_idの値が0の時は保存できないこと' do
         @item.category_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 0")
+        expect(@item.errors.full_messages).to include('Category must be other than 0')
       end
 
-      it "status_idの値が0の時は保存できないこと" do
+      it 'status_idの値が0の時は保存できないこと' do
         @item.status_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Status must be other than 0")
+        expect(@item.errors.full_messages).to include('Status must be other than 0')
       end
 
-      it "payment_idの値が0の時は保存できないこと" do
+      it 'payment_idの値が0の時は保存できないこと' do
         @item.payment_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Payment must be other than 0")
+        expect(@item.errors.full_messages).to include('Payment must be other than 0')
       end
 
-      it "prefecture_idの値が0の時は保存できないこと" do
+      it 'prefecture_idの値が0の時は保存できないこと' do
         @item.prefecture_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture must be other than 0")
+        expect(@item.errors.full_messages).to include('Prefecture must be other than 0')
       end
 
-      it "day_idの値が0の時は保存できないこと" do
+      it 'day_idの値が0の時は保存できないこと' do
         @item.day_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Day must be other than 0")
+        expect(@item.errors.full_messages).to include('Day must be other than 0')
       end
     end
   end

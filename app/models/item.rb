@@ -9,12 +9,16 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  # 必須項目
   validates :name, :image, :price, :description, :category_id, :status_id, :payment_id, :prefecture_id, :day_id, presence: true
+
+  # 価格の範囲
   validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
-  validates :category_id, numericality: { other_than: 0, message: "can't be blank" }
-  validates :status_id,   numericality: { other_than: 0, message: "Sales status can't be blank" }
-  validates :payment_id,  numericality: { other_than: 0, message: "Shipping fee status can't be blank" }
-  validates :prefecture_id, numericality: { other_than: 0, message: "Prefecture can't be blank" }
-  validates :day_id,      numericality: { other_than: 0, message: "Scheduled delivery can't be blank" }
+  # ActiveHash の初期値(0)を除外
+  validates :category_id, numericality: { other_than: 0 }
+  validates :status_id,   numericality: { other_than: 0 }
+  validates :payment_id,  numericality: { other_than: 0 }
+  validates :prefecture_id, numericality: { other_than: 0 }
+  validates :day_id, numericality: { other_than: 0 }
 end
